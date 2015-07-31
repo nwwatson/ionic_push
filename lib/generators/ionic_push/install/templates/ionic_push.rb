@@ -4,11 +4,11 @@ IonicPush.setup do |config|
   # https://apps.ionic.io/apps
   config.ionic_application_id = ENV["IONIC_APPLICATION_ID"]
 
-  # ==> Configuration for the Private API Key
-  # The Private API Key for your application can be found
+  # ==> Configuration for the Ionic API Key
+  # The  API Key for your application can be found
   # within the Settings of your application on
   # https://apps.ionic.io/apps
-  config.ionic_private_api_key = ENV["IONIC_PRIVATE_API_KEY"]
+  config.ionic_api_key = ENV["IONIC_API_KEY"]
 
   # ==> Configuration for the location of the API
   # Refer to the Ionic documentation for the correct location

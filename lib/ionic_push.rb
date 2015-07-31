@@ -1,4 +1,5 @@
 require 'rails'
+require 'httparty'
 
 module IonicPush
   # Registered application if for the ionic platform
@@ -6,8 +7,8 @@ module IonicPush
   @@ionic_application_id = ""
 
   # Private key for sending information
-  mattr_accessor :ionic_private_api_key
-  @@ionic_private_api_key = ""
+  mattr_accessor :ionic_api_key
+  @@ionic_api_key = ""
 
   # API URL
   mattr_accessor :ionic_api_url
@@ -17,3 +18,5 @@ module IonicPush
     yield self
   end
 end
+
+require 'ionic_push/push_service'

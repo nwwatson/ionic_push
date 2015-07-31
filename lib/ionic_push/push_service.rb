@@ -11,28 +11,28 @@ module IonicPush
     end
 
     def notify!
+      self.class.post("/api/v1/push", payload)
+    end
+
+    def payload
       options = {}
 
       body = {
-        'tokens': @device_tokens,
-        'notification': { alert: @message }
+        "tokens": @device_tokens,
+        "notification": { alert: @message }
       }.to_json
 
       options.merge!(body: body).merge!({ basic_auth: auth}).merge!({ headers: headers})
-      self.class.post('/api/v1/push', options)
     end
 
     private
 
     def auth
-      { username: IonicPush.ionic_private_api_key }
+      { username: IonicPush.ionic_api_key }
     end
 
     def headers
-      {
-        'Content-Type': 'application/json',
-        'X-Ionic-Application-Id': IonicPush.ionic_application_id
-      }
+      { 'Content-Type' => 'application/json', 'X-Ionic-Application-Id' => IonicPush.ionic_application_id }
     end
   end
 end
