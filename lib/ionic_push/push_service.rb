@@ -5,23 +5,30 @@ module IonicPush
 
     attr_accessor :device_tokens, :message
 
-    def initialize(message, device_tokens)
-      @message = message
-      @device_tokens = device_tokens
+    def initialize(**args)
+      #args.each &method(:instance_variable_set)
+      args.each do |attr, value|
+        instance_variable_set("@#{attr}", value)
+      end
     end
 
     def notify!
       self.class.post("/api/v1/push", payload)
     end
 
+    def alert!(msg)
+      {
+        alert: msg
+      }
+    end
+
+    def notify(&block)
+      @message =  yield(block)
+      notify!
+    end
+
     def payload
       options = {}
-
-      body = {
-        "tokens": @device_tokens,
-        "notification": { alert: @message }
-      }.to_json
-
       options.merge!(body: body).merge!({ basic_auth: auth}).merge!({ headers: headers})
     end
 
@@ -33,6 +40,13 @@ module IonicPush
 
     def headers
       { 'Content-Type' => 'application/json', 'X-Ionic-Application-Id' => IonicPush.ionic_application_id }
+    end
+
+    def body
+      {
+        "tokens": @device_tokens,
+        "notification": @message
+      }.to_json
     end
   end
 end
