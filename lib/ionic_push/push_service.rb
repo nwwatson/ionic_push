@@ -46,8 +46,8 @@ module IonicPush
 
     def body
       {
-        "tokens": @device_tokens,
-        "notification": @message
+        tokens: @device_tokens,
+        notification: @message
       }.to_json
     end
   end
