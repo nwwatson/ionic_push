@@ -17,9 +17,11 @@ module IonicPush
     end
 
     def alert!(msg)
-      {
-        alert: msg
-      }
+      notify do
+        {
+          alert: msg
+        }
+      end
     end
 
     def notify(&block)
