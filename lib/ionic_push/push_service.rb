@@ -3,7 +3,7 @@ module IonicPush
     include HTTParty
     base_uri IonicPush.ionic_api_url
 
-    attr_accessor :device_tokens, :message
+    attr_accessor :device_tokens, :user_ids, :message
 
     def initialize(**args)
       #args.each &method(:instance_variable_set)
@@ -47,6 +47,7 @@ module IonicPush
     def body
       {
         tokens: @device_tokens,
+        user_ids: @user_ids,
         notification: @message
       }.to_json
     end
